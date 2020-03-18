@@ -4,7 +4,7 @@ import socket
 class getUserActivity(Thread):
     def __init__(self,siteID):
         self.__siteID = siteID
-        self.__rpc = socket.scoket(socket.AF_INET, socket.SOCK_STREAM)
+        self.__rpc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__rpc.connect(('127.0.0.1',5624))
         super().__init__()
     def run(self):
