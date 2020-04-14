@@ -1,9 +1,16 @@
-import socketserver
-class MsgHandler(socketserver.BaseRequestHandler):
-    def Handler(self):
-        data = self.request.recv(100000000000).decode('utf-8')
-        print(data)
-        self.request.sendall("OK")
+from multiprocessing import Process, Queue
+from UserActivity import getUserActivity
+import sys
+if __name__ == '__main__':
+    message = Queue()
+    getUserActivity('d43f1ff7-ae36-4b1e-9af8-98a9cf027c22',message).start()
+    try:
+        while True:
+            if not message.empty():
+                data = message.get()
+                if data['type'] == 'activity':
+                    for v in data['data']:
+                        print(v)
+    except KeyboardInterrupt :
+        sys.exit(0)
 
-socketserver.TCPServer(("127.0.0.1",5624),MsgHandler).serve_forever()
-    
