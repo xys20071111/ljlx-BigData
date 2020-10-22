@@ -1,5 +1,4 @@
-from queue import Queue
-from multiprocessing import Process
+from multiprocessing import Process,Queue
 from requests import get
 from time import sleep
 class getUserActivity(Process):
